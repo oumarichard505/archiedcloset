@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   color: #111111;
   background-color: #fafafa;
   font-synthesis: none;
@@ -31,9 +32,45 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 button,
 input,
 textarea,
 select {
   font: inherit;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.fade-up-delay-1 {
+  animation: fadeUp 0.8s ease-out 0.15s both;
+}
+
+.fade-up-delay-2 {
+  animation: fadeUp 0.8s ease-out 0.3s both;
+}
+
+.fade-up-delay-3 {
+  animation: fadeUp 0.8s ease-out 0.45s both;
 }
