@@ -7,6 +7,7 @@ export type Product = {
   category: ProductCategory
   image: string
   description: string
+  details: string[]
   isNew?: boolean
 }
 
@@ -19,6 +20,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80',
     description: 'A clean and elegant tote bag designed for everyday sophistication.',
+    details: [
+      'Structured silhouette with a refined finish',
+      'Spacious interior for daily essentials',
+      'Perfect for work, shopping, and casual elegance',
+    ],
     isNew: true,
   },
   {
@@ -29,6 +35,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1200&q=80',
     description: 'Premium black chain bag with a timeless luxury finish.',
+    details: [
+      'Elegant chain strap detail',
+      'Classic black tone for versatile styling',
+      'Designed to elevate day and evening looks',
+    ],
   },
   {
     id: 3,
@@ -38,6 +49,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=80',
     description: 'Compact, elegant, and perfect for stylish casual outings.',
+    details: [
+      'Compact size with premium visual appeal',
+      'Light cream tone for soft feminine styling',
+      'Ideal for outings, brunches, and events',
+    ],
   },
   {
     id: 4,
@@ -47,6 +63,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
     description: 'A refined statement bag with a feminine and polished feel.',
+    details: [
+      'Soft pink feminine tone',
+      'Structured luxury-inspired silhouette',
+      'Beautiful choice for polished everyday looks',
+    ],
     isNew: true,
   },
   {
@@ -57,6 +78,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=80',
     description: 'A rich and luxurious oud fragrance with deep lasting notes.',
+    details: [
+      'Bold scent profile with rich oud character',
+      'Long-lasting fragrance impression',
+      'Perfect for elegant occasions and standout moments',
+    ],
     isNew: true,
   },
   {
@@ -67,6 +93,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=1200&q=80',
     description: 'Soft floral perfume crafted for elegant daily wear.',
+    details: [
+      'Soft floral notes for a graceful finish',
+      'Designed for fresh everyday wear',
+      'A timeless scent for feminine elegance',
+    ],
   },
   {
     id: 7,
@@ -76,6 +107,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=80',
     description: 'A bold feminine scent with warm sensual undertones.',
+    details: [
+      'Deep, bold, and memorable fragrance character',
+      'Warm undertones with luxury appeal',
+      'Ideal for evenings and statement styling',
+    ],
   },
   {
     id: 8,
@@ -85,6 +121,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1622618991746-fe6004db3a47?auto=format&fit=crop&w=1200&q=80',
     description: 'A romantic rose fragrance with soft modern elegance.',
+    details: [
+      'Romantic rose-centered scent',
+      'Elegant and modern feminine expression',
+      'A soft signature fragrance for everyday luxury',
+    ],
     isNew: true,
   },
   {
@@ -95,6 +136,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80',
     description: 'A gift-ready collection featuring luxury essentials.',
+    details: [
+      'Curated for premium gifting moments',
+      'Elegant presentation with boutique appeal',
+      'Ideal for birthdays, celebrations, and special occasions',
+    ],
   },
   {
     id: 10,
@@ -102,8 +148,13 @@ export const products: Product[] = [
     price: 5400,
     category: 'gift-sets',
     image:
-      'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3f?auto=format&fit=crop&w=1200&q=80',
     description: 'Two elegant scents bundled beautifully for gifting.',
+    details: [
+      'Two fragrance options in one refined bundle',
+      'Beautifully suited for gifting',
+      'Luxury feel with strong value',
+    ],
     isNew: true,
   },
   {
@@ -114,6 +165,11 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80',
     description: 'A premium gift set for birthdays, celebrations, and special moments.',
+    details: [
+      'Premium curated presentation',
+      'Made for celebrations and thoughtful gifting',
+      'A polished all-in-one gift choice',
+    ],
   },
   {
     id: 12,
@@ -123,5 +179,10 @@ export const products: Product[] = [
     image:
       'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80',
     description: 'A polished gifting bundle with a luxurious boutique feel.',
+    details: [
+      'Boutique-style gift presentation',
+      'Elegant and memorable packaging feel',
+      'Perfect for a refined luxury gifting experience',
+    ],
   },
 ]

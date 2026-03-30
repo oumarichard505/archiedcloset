@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, ShoppingBag, X } from 'lucide-react'
+import { useCart } from '../../app/context/CartContext'
 
 const navItems = [
   { label: 'Home', to: '/' },
@@ -12,6 +13,7 @@ const navItems = [
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { cartCount } = useCart()
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-[#FAFAFA]/90 backdrop-blur-md">
@@ -39,10 +41,16 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <Link
             to="/cart"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37]"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37]"
             aria-label="Open cart"
           >
             <ShoppingBag size={20} />
+
+            {cartCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[10px] font-bold text-[#111111]">
+                {cartCount}
+              </span>
+            )}
           </Link>
 
           <button
