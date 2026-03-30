@@ -1,5 +1,4 @@
 import { SectionHeading } from '../common/sectionHeading'
-import {  } from '../common/SectionHeading'
 
 export function ShopHero() {
   return (
