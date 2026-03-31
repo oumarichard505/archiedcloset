@@ -16,21 +16,35 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-[#F2F2F2]/95 backdrop-blur-md">
-      <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-6 lg:px-10">
+      <div className="relative mx-auto flex h-24 w-full max-w-7xl items-center px-4 sm:px-6 lg:px-10">
+        {/* Mobile menu button */}
+        <div className="flex items-center md:hidden">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37]"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Logo */}
         <Link
           to="/"
-          className="flex shrink-0 items-center"
+          className="absolute left-1/2 flex -translate-x-1/2 items-center md:left-0 md:translate-x-0"
           aria-label="Go to homepage"
           onClick={() => setMobileMenuOpen(false)}
         >
           <img
             src={logo}
             alt="Achie D Closet"
-            className="h-14 w-auto object-contain sm:h-16"
+            className="h-[68px] w-auto object-contain sm:h-[72px] md:h-16"
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        {/* Desktop nav centered */}
+        <nav className="mx-auto hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <NavLink
               key={item.label}
@@ -46,7 +60,8 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        {/* Cart */}
+        <div className="ml-auto flex items-center gap-3">
           <Link
             to="/cart"
             className="relative flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37]"
@@ -61,15 +76,6 @@ export function Navbar() {
               </span>
             )}
           </Link>
-
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37] md:hidden"
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
         </div>
       </div>
 
