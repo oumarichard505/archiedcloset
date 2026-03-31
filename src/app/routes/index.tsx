@@ -6,6 +6,7 @@ import { ProductDetailsPage } from '../../pages/ProductDetailsPage'
 import { CartPage } from '../../pages/CartPage'
 import { CheckoutPage } from '../../pages/CheckoutPage'
 import { ContactPage } from '../../pages/ContactPage'
+import { AboutPage } from '../../pages/AboutPage'
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactPage />,
+      },
+      {
+        path: 'about',
+        element: <AboutPage />,
       },
     ],
   },

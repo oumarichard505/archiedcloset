@@ -23,6 +23,9 @@ export function Footer() {
             <Link to="/shop" className="transition-colors hover:text-[#D4AF37]">
               Shop
             </Link>
+            <Link to="/about" className="transition-colors hover:text-[#D4AF37]">
+              About
+            </Link>
             <Link to="/contact" className="transition-colors hover:text-[#D4AF37]">
               Contact
             </Link>
@@ -37,7 +40,7 @@ export function Footer() {
           <div className="mt-4 space-y-3 text-sm text-[#5f5f5f]">
             <p>Nairobi, Kenya</p>
             <p>WhatsApp orders available daily</p>
-            <p>Instagram, TikTok, Facebook</p>
+            <p>+254702691978</p>
           </div>
         </div>
       </div>

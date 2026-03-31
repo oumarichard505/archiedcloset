@@ -8,6 +8,8 @@ const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Shop', to: '/shop' },
   // { label: 'Bags', to: '/shop?category=bags' },
+  // { label: 'Perfumes', to: '/shop?category=perfumes' },
+  { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
 
