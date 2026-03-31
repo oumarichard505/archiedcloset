@@ -1,4 +1,11 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 import type { Product } from '../../data/products'
 
 export type CartItem = {
@@ -19,12 +26,43 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+const CART_STORAGE_KEY = 'achiedcloset-cart'
+
 type CartProviderProps = {
   children: ReactNode
 }
 
+function getInitialCart(): CartItem[] {
+  try {
+    const storedCart = localStorage.getItem(CART_STORAGE_KEY)
+
+    if (!storedCart) {
+      return []
+    }
+
+    const parsedCart = JSON.parse(storedCart) as CartItem[]
+
+    if (!Array.isArray(parsedCart)) {
+      return []
+    }
+
+    return parsedCart
+  } catch (error) {
+    console.error('Failed to read cart from localStorage:', error)
+    return []
+  }
+}
+
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<CartItem[]>(getInitialCart)
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems))
+    } catch (error) {
+      console.error('Failed to save cart to localStorage:', error)
+    }
+  }, [cartItems])
 
   const addToCart = (product: Product, quantity = 1) => {
     setCartItems((prev) => {

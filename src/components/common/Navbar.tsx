@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, ShoppingBag, X } from 'lucide-react'
 import { useCart } from '../../app/context/CartContext'
+import logo from '../../assets/logo.png'
 
 const navItems = [
   { label: 'Home', to: '/' },
@@ -16,10 +17,19 @@ export function Navbar() {
   const { cartCount } = useCart()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#FAFAFA]/90 backdrop-blur-md">
-      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 lg:px-10">
-        <Link to="/" className="font-display text-2xl font-semibold tracking-wide text-[#111111]">
-          AchieDCloset
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#FAFAFA]/95 backdrop-blur-md">
+      <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-6 lg:px-10">
+        <Link
+          to="/"
+          className="flex shrink-0 items-center"
+          aria-label="Go to homepage"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <img
+            src={logo}
+            alt="Achie D Closet"
+            className="h-14 w-auto object-contain sm:h-16"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -43,6 +53,7 @@ export function Navbar() {
             to="/cart"
             className="relative flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37]"
             aria-label="Open cart"
+            onClick={() => setMobileMenuOpen(false)}
           >
             <ShoppingBag size={20} />
 
