@@ -18,7 +18,7 @@ export const products: Product[] = [
     price: 3500,
     category: 'bags',
     image:
-      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/28/8e/59/288e5931a9d009962c4cba23e1f38f74.jpg',
     description: 'A clean and elegant tote bag designed for everyday sophistication.',
     details: [
       'Structured silhouette with a refined finish',
@@ -33,7 +33,7 @@ export const products: Product[] = [
     price: 5000,
     category: 'bags',
     image:
-      'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/3a/93/68/3a9368e82cdc30ccdf9b8fa8cdfb0aa2.jpg',
     description: 'Premium black chain bag with a timeless luxury finish.',
     details: [
       'Elegant chain strap detail',
@@ -47,7 +47,7 @@ export const products: Product[] = [
     price: 4200,
     category: 'bags',
     image:
-      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/31/8d/6b/318d6b693605733c213f899fdfea412c.jpg',
     description: 'Compact, elegant, and perfect for stylish casual outings.',
     details: [
       'Compact size with premium visual appeal',
@@ -61,7 +61,7 @@ export const products: Product[] = [
     price: 4600,
     category: 'bags',
     image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/88/5d/80/885d80937e70a5a4f0271ad2f5bb5dab.jpg',
     description: 'A refined statement bag with a feminine and polished feel.',
     details: [
       'Soft pink feminine tone',
@@ -76,7 +76,7 @@ export const products: Product[] = [
     price: 2800,
     category: 'perfumes',
     image:
-      'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/5f/17/ba/5f17bafe70c4c362c050ab6f7c9fcc90.jpg',
     description: 'A rich and luxurious oud fragrance with deep lasting notes.',
     details: [
       'Bold scent profile with rich oud character',
@@ -105,7 +105,7 @@ export const products: Product[] = [
     price: 3200,
     category: 'perfumes',
     image:
-      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/61/41/a5/6141a53330bb5c4e5e7ecf3170e60077.jpg',
     description: 'A bold feminine scent with warm sensual undertones.',
     details: [
       'Deep, bold, and memorable fragrance character',
@@ -119,7 +119,7 @@ export const products: Product[] = [
     price: 2900,
     category: 'perfumes',
     image:
-      'https://images.unsplash.com/photo-1622618991746-fe6004db3a47?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/d6/89/86/d689865d5dcee70de9de95be74274b09.jpg',
     description: 'A romantic rose fragrance with soft modern elegance.',
     details: [
       'Romantic rose-centered scent',
@@ -134,7 +134,7 @@ export const products: Product[] = [
     price: 6500,
     category: 'gift-sets',
     image:
-      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/a4/75/52/a475520afb4c02fc1e690b14279d133b.jpg',
     description: 'A gift-ready collection featuring luxury essentials.',
     details: [
       'Curated for premium gifting moments',
@@ -148,7 +148,7 @@ export const products: Product[] = [
     price: 5400,
     category: 'gift-sets',
     image:
-      'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3f?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/a0/8f/94/a08f941400e58ae217f52d02e556ee88.jpg',
     description: 'Two elegant scents bundled beautifully for gifting.',
     details: [
       'Two fragrance options in one refined bundle',
@@ -163,7 +163,7 @@ export const products: Product[] = [
     price: 7000,
     category: 'gift-sets',
     image:
-      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/11/8d/bf/118dbff74e4ffb01bf5b4d6cb166d454.jpg',
     description: 'A premium gift set for birthdays, celebrations, and special moments.',
     details: [
       'Premium curated presentation',
@@ -177,7 +177,7 @@ export const products: Product[] = [
     price: 6000,
     category: 'gift-sets',
     image:
-      'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/40/54/de/4054de7f7589acca0ff1ac5b1022d79d.jpg',
     description: 'A polished gifting bundle with a luxurious boutique feel.',
     details: [
       'Boutique-style gift presentation',

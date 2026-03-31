@@ -39,7 +39,7 @@ export const featuredBags: ProductItem[] = [
     name: 'Classic Beige Tote',
     price: 3500,
     image:
-      'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/cc/39/bf/cc39bf71fda3204a3808b06e44d4a4ae.jpg',
     isNew: true,
   },
   {
@@ -47,14 +47,14 @@ export const featuredBags: ProductItem[] = [
     name: 'Luxury Black Chain Bag',
     price: 5000,
     image:
-      'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/85/19/d7/8519d705e31fce977536013a93509119.jpg',
   },
   {
     id: 3,
     name: 'Elegant Mini Cream Bag',
     price: 4200,
     image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
+      'https://i.pinimg.com/736x/59/3c/4c/593c4c823a504049c1bb97cbf99a7004.jpg',
   },
 ]
 

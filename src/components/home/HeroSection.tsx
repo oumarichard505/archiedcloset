@@ -35,7 +35,7 @@ export function HeroSection() {
         <div className="fade-up-delay-2 relative">
           <div className="overflow-hidden rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
             <img
-              src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1400&q=80"
+              src="https://i.pinimg.com/736x/4c/44/50/4c44509c59aa576f447cab57cf4de550.jpg"
               alt="Elegant woman holding a luxury handbag"
               className="h-[520px] w-full object-cover"
             />

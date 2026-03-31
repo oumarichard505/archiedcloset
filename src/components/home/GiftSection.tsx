@@ -16,7 +16,7 @@ export function GiftSection() {
 
           <div className="fade-up-delay-1 overflow-hidden rounded-[2rem]">
             <img
-              src="https://images.unsplash.com/photo-1595425964072-6ee0a30f6d2f?auto=format&fit=crop&w=1400&q=80"
+              src="https://i.pinimg.com/736x/54/05/a0/5405a0799b20851923424c6ab29294d8.jpg"
               alt="Luxury perfume bottle on display"
               className="h-[420px] w-full object-cover"
             />
