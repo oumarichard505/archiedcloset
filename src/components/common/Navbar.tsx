@@ -7,7 +7,7 @@ import logo from '../../assets/logo.png'
 const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Shop', to: '/shop' },
-  { label: 'Bags', to: '/shop?category=bags' },
+  // { label: 'Bags', to: '/shop?category=bags' },
   { label: 'Contact', to: '/contact' },
 ]
 
