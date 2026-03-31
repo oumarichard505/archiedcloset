@@ -5,7 +5,7 @@ import { WhatsAppFloat } from '../../components/common/WhatsAppFloat'
 
 export function RootLayout() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#111111]">
+    <div className="min-h-screen bg-[#fafaf6] text-[#111111]">
       <Navbar />
       <main className="overflow-x-hidden">
         <Outlet />

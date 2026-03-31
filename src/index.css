@@ -74,3 +74,21 @@ select {
 .fade-up-delay-3 {
   animation: fadeUp 0.8s ease-out 0.45s both;
 }
+
+@layer components {
+  .btn-dark-force {
+    color: white !important;
+  }
+
+  .btn-dark-force:hover {
+    color: #111111 !important;
+  }
+
+  .btn-gold-force {
+    color: #111111 !important;
+  }
+
+  .btn-gold-force:hover {
+    color: white !important;
+  }
+}

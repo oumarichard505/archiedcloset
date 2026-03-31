@@ -30,10 +30,9 @@ export function GiftSection() {
             description="Thoughtfully curated bags, perfumes, and gift-worthy pieces designed to make every celebration feel special."
             align="center"
           />
-
           <Link
             to="/shop"
-            className="mt-8 inline-flex items-center justify-center rounded-xl bg-[#D4AF37] px-8 py-4 text-sm font-semibold text-[#111111] transition-all duration-300 hover:bg-[#111111] hover:text-white"
+            className="btn-gold-force mt-8 inline-flex items-center justify-center rounded-xl bg-[#D4AF37] px-8 py-4 text-sm font-semibold transition-all duration-300 hover:bg-[#111111]"
           >
             Shop Gift Sets
           </Link>

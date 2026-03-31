@@ -17,7 +17,7 @@ export function Navbar() {
   const { cartCount } = useCart()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#FAFAFA]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-[#F2F2F2]/95 backdrop-blur-md">
       <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-6 lg:px-10">
         <Link
           to="/"

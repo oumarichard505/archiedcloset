@@ -37,12 +37,12 @@ export function CartSummary({ subtotal, itemCount }: CartSummaryProps) {
         </div>
       </div>
 
-      <Link
-        to="/checkout"
-        className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-[#111111] px-6 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#111111]"
-      >
-        Proceed to Checkout
-      </Link>
+          <Link
+            to="/checkout"
+            className="btn-dark-force mt-8 inline-flex w-full items-center justify-center rounded-xl bg-[#111111] px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-[#D4AF37]"
+          >
+            Proceed to Checkout
+          </Link>
     </aside>
   )
 }

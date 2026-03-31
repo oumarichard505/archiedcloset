@@ -25,12 +25,12 @@ export function CartPage() {
             align="center"
           />
 
-          <Link
-            to="/shop"
-            className="mt-8 inline-flex items-center justify-center rounded-xl bg-[#111111] px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#111111]"
-          >
-            Continue Shopping
-          </Link>
+        <Link
+          to="/shop"
+          className="btn-dark-force mt-8 inline-flex items-center justify-center rounded-xl bg-[#111111] px-8 py-4 text-sm font-semibold transition-all duration-300 hover:bg-[#D4AF37]"
+        >
+          Continue Shopping
+        </Link>
         </div>
       </section>
     )

@@ -19,10 +19,9 @@ export function HeroSection() {
           <div className="fade-up-delay-3 mt-10 flex flex-col gap-4 sm:flex-row">
             <a
               href="#featured-bags"
-              className="inline-flex items-center justify-center rounded-xl bg-[#111111] px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#111111]"
-            >
+              className="btn-dark-force inline-flex items-center justify-center rounded-xl bg-[#111111] px-8 py-4 text-sm font-semibold transition-all duration-300 hover:bg-[#D4AF37]">
               Shop Bags
-            </a>
+              </a>
 
             <a
               href="#featured-perfumes"
