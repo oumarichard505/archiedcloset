@@ -1,13 +1,22 @@
 export function WhatsAppFloat() {
   return (
     <a
-      href="https://wa.me/254700000000"
+      href="https://wa.me/254702691978"
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 inline-flex items-center justify-center rounded-full bg-[#25D366] p-4 text-white shadow-lg transition-transform duration-300 hover:scale-105"
+      className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform duration-300 hover:scale-105"
     >
-      <span className="text-lg font-bold">WA</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        fill="currentColor"
+        className="h-7 w-7"
+        aria-hidden="true"
+      >
+        <path d="M19.11 17.53c-.27-.13-1.58-.78-1.82-.87-.24-.09-.42-.13-.6.13-.18.27-.69.87-.84 1.05-.16.18-.31.2-.58.07-.27-.13-1.12-.41-2.13-1.31-.79-.7-1.32-1.56-1.47-1.83-.16-.27-.02-.41.11-.55.11-.11.27-.29.4-.44.13-.16.18-.27.27-.44.09-.18.04-.33-.02-.47-.07-.13-.6-1.45-.82-1.98-.22-.53-.44-.46-.6-.47h-.51c-.18 0-.47.07-.71.33-.24.27-.93.91-.93 2.22 0 1.31.95 2.58 1.09 2.75.13.18 1.87 2.86 4.53 4.01.63.27 1.12.43 1.51.55.63.2 1.2.17 1.65.11.5-.07 1.58-.64 1.8-1.25.22-.62.22-1.15.16-1.25-.07-.11-.24-.18-.51-.31Z" />
+        <path d="M16.03 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.25.59 4.46 1.71 6.41L3.1 28.8l6.56-1.72a12.75 12.75 0 0 0 6.37 1.73h.01c7.06 0 12.79-5.74 12.79-12.8 0-3.43-1.34-6.65-3.76-9.07A12.72 12.72 0 0 0 16.03 3.2Zm0 23.43h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.89 1.02 1.04-3.79-.25-.39a10.57 10.57 0 0 1-1.63-5.67c0-5.85 4.76-10.61 10.62-10.61 2.83 0 5.49 1.1 7.49 3.1a10.53 10.53 0 0 1 3.11 7.5c0 5.85-4.76 10.61-10.6 10.61Z" />
+      </svg>
     </a>
   )
 }

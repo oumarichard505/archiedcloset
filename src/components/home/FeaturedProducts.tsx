@@ -2,14 +2,6 @@ import { Link } from 'react-router-dom'
 import { SectionHeading } from '../common/sectionHeading'
 import { featuredBags, featuredPerfumes, type ProductItem } from '../../data/home'
 
-function formatCurrency(price: number) {
-  return new Intl.NumberFormat('en-KE', {
-    style: 'currency',
-    currency: 'KES',
-    maximumFractionDigits: 0,
-  }).format(price)
-}
-
 function ProductCard({
   product,
   animationClass,
@@ -39,7 +31,6 @@ function ProductCard({
         <h3 className="font-display text-2xl text-[#111111] transition-colors duration-300 group-hover:text-[#D4AF37]">
           {product.name}
         </h3>
-        <p className="mt-2 text-base font-medium text-[#5f5f5f]">{formatCurrency(product.price)}</p>
       </div>
     </article>
   )

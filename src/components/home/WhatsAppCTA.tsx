@@ -17,7 +17,7 @@ export function WhatsAppCTA() {
           </p>
 
           <a
-            href="https://wa.me/254700000000"
+            href="https://wa.me/254702691978"
             target="_blank"
             rel="noreferrer"
             className="fade-up-delay-3 mt-8 inline-flex items-center justify-center rounded-xl bg-[#25D366] px-8 py-4 text-sm font-semibold text-white transition-transform duration-300 hover:scale-[1.02]"

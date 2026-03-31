@@ -7,6 +7,7 @@ import logo from '../../assets/logo.png'
 const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Shop', to: '/shop' },
+  { label: 'Bags', to: '/shop?category=bags' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -17,7 +18,6 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-[#F2F2F2]/95 backdrop-blur-md">
       <div className="relative mx-auto flex h-24 w-full max-w-7xl items-center px-4 sm:px-6 lg:px-10">
-        {/* Mobile menu button */}
         <div className="flex items-center md:hidden">
           <button
             type="button"
@@ -29,7 +29,6 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Logo */}
         <Link
           to="/"
           className="absolute left-1/2 flex -translate-x-1/2 items-center md:left-0 md:translate-x-0"
@@ -43,7 +42,6 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav centered */}
         <nav className="mx-auto hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <NavLink
@@ -60,7 +58,6 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Cart */}
         <div className="ml-auto flex items-center gap-3">
           <Link
             to="/cart"

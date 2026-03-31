@@ -29,7 +29,7 @@ Subtotal: KES ${cartSubtotal}`
 
     const encodedMessage = encodeURIComponent(rawMessage)
 
-    window.open(`https://wa.me/254700000000?text=${encodedMessage}`, '_blank')
+    window.open(`https://wa.me/254702691978?text=${encodedMessage}`, '_blank')
     clearCart()
   }
 

@@ -1,25 +1,25 @@
-import {  Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 
 const contactItems = [
   {
     title: 'WhatsApp',
-    value: '+254 700 000 000',
+    value: '+254702691978',
     description: 'Chat with us directly for fast and easy ordering.',
-    href: 'https://wa.me/254700000000',
+    href: 'https://wa.me/254702691978',
     icon: MessageCircle,
   },
   {
     title: 'Phone',
-    value: '+254 700 000 000',
+    value: '+254702691978',
     description: 'Call us for product inquiries and customer support.',
-    href: 'tel:+254700000000',
+    href: 'tel:+254702691978',
     icon: Phone,
   },
   {
     title: 'Email',
-    value: 'hello@achiedcloset.com',
+    value: 'millymillicent69@gmail.com',
     description: 'Send us your questions, feedback, or business inquiries.',
-    href: 'mailto:hello@achiedcloset.com',
+    href: 'mailto:millymillicent69@gmail.com',
     icon: Mail,
   },
   {
@@ -29,13 +29,6 @@ const contactItems = [
     href: '#',
     icon: MapPin,
   },
-//   {
-//     title: 'Instagram',
-//     value: '@achiedcloset',
-//     description: 'Follow our latest drops, luxury picks, and updates.',
-//     href: 'https://instagram.com',
-//     icon: Instagram,
-//   },
 ]
 
 export function ContactInfoGrid() {

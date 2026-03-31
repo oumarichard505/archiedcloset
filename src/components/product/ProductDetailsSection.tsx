@@ -115,7 +115,7 @@ export function ProductDetailsSection({ product }: ProductDetailsSectionProps) {
             </button>
 
             <a
-              href={`https://wa.me/254700000000?text=${whatsappMessage}`}
+              href={`https://wa.me/254702691978?text=${whatsappMessage}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center rounded-xl border border-[#25D366] px-8 py-4 text-sm font-semibold text-[#25D366] transition-all duration-300 hover:bg-[#25D366] hover:text-white"
