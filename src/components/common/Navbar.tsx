@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, ShoppingBag, X } from 'lucide-react'
 import { useCart } from '../../app/context/CartContext'
@@ -14,6 +14,14 @@ const navItems = [
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { cartCount } = useCart()
+  const menuRef = useRef<HTMLDivElement>(null)
+  const [menuHeight, setMenuHeight] = useState(0)
+
+  useEffect(() => {
+    if (menuRef.current) {
+      setMenuHeight(menuRef.current.scrollHeight)
+    }
+  }, [mobileMenuOpen])
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-[#F2F2F2]/95 backdrop-blur-md">
@@ -26,7 +34,14 @@ export function Navbar() {
             className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition-all duration-300 hover:border-[#D4AF37] hover:text-[#D4AF37]"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            <span
+              className="transition-all duration-300"
+              style={{
+                transform: mobileMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+              }}
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </span>
           </button>
         </div>
 
@@ -90,20 +105,36 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="border-t border-black/10 bg-[#FAFAFA] px-6 py-5 md:hidden">
+      {/* Mobile menu — animated slide down */}
+      <div
+        style={{
+          maxHeight: mobileMenuOpen ? `${menuHeight}px` : '0px',
+          opacity: mobileMenuOpen ? 1 : 0,
+          transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          ref={menuRef}
+          className="border-t border-black/10 bg-[#FAFAFA] px-6 py-5 md:hidden"
+        >
           <nav className="flex flex-col gap-2">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <NavLink
                 key={item.label}
                 to={item.to}
                 onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  transitionDelay: mobileMenuOpen ? `${index * 60}ms` : '0ms',
+                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)',
+                  opacity: mobileMenuOpen ? 1 : 0,
+                  transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease',
+                }}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-300 ${
+                  `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-300 ${
                     isActive
                       ? 'bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]'
-                      : 'text-[#111111] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] hover:border-l-2 hover:border-[#D4AF37] border-l-2 border-transparent'
+                      : 'text-[#111111] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] border-l-2 border-transparent hover:border-[#D4AF37]'
                   }`
                 }
               >
@@ -112,7 +143,7 @@ export function Navbar() {
             ))}
           </nav>
         </div>
-      )}
+      </div>
     </header>
   )
 }
