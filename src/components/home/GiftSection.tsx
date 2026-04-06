@@ -8,7 +8,7 @@ export function GiftSection() {
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="fade-up overflow-hidden rounded-[2rem]">
             <img
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1400&q=80"
+              src="https://i.pinimg.com/736x/ae/bf/34/aebf343bbc78ebd41c49ab993a51ceb3.jpg"
               alt="Elegant woman holding a stylish handbag"
               className="h-[420px] w-full object-cover"
             />
