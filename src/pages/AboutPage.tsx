@@ -37,7 +37,7 @@ export function AboutPage() {
           <div className="fade-up">
             <div className="overflow-hidden rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
               <img
-                src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1400&q=80"
+                src="https://i.pinimg.com/1200x/32/15/9a/32159abd4e52acefc1102a590027969e.jpg"
                 alt="Elegant fashion styling"
                 className="h-[420px] w-full object-cover md:h-[520px]"
               />
