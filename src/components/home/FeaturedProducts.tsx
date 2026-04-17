@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { SectionHeading } from '../common/sectionHeading'
-import { featuredBags, featuredPerfumes, type ProductItem } from '../../data/home'
+import { useProducts } from '../../app/context/ProductContext'
+import type { ProductItem } from '../../data/home'
 
 function ProductCard({
   product,
@@ -77,6 +78,30 @@ function ProductSection({
 }
 
 export function FeaturedProducts() {
+  const { products } = useProducts()
+
+  const featuredBags = products
+    .filter(p => p.category === 'bags')
+    .slice(0, 3)
+    .map(p => ({
+      id: p.id,
+      name: p.name,
+      price: p.price,
+      image: p.image,
+      isNew: p.isNew,
+    }))
+
+  const featuredPerfumes = products
+    .filter(p => p.category === 'perfumes')
+    .slice(0, 3)
+    .map(p => ({
+      id: p.id,
+      name: p.name,
+      price: p.price,
+      image: p.image,
+      isNew: p.isNew,
+    }))
+
   return (
     <section className="bg-[#FAFAFA] py-20">
       <div className="mx-auto w-full max-w-7xl space-y-20 px-6 lg:px-10">

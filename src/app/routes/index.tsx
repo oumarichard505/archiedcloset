@@ -7,6 +7,8 @@ import { CartPage } from '../../pages/CartPage'
 import { CheckoutPage } from '../../pages/CheckoutPage'
 import { ContactPage } from '../../pages/ContactPage'
 import { AboutPage } from '../../pages/AboutPage'
+import { AdminLoginPage } from '../../pages/AdminLoginPage'
+import { AdminProductsPage } from '../../pages/AdminProductsPage'
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,19 @@ export const router = createBrowserRouter([
       {
         path: 'about',
         element: <AboutPage />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    children: [
+      {
+        path: 'login',
+        element: <AdminLoginPage />,
+      },
+      {
+        path: 'products',
+        element: <AdminProductsPage />,
       },
     ],
   },

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Lock } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -45,7 +46,15 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-black/10 px-6 py-5 text-center text-sm text-[#7a7a7a]">
+      <div className="border-t border-black/10 px-6 py-5 text-center text-sm text-[#7a7a7a] relative">
+        <Link
+          to="/admin/login"
+          aria-label="Admin login"
+          title="Admin login"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-[#111111] transition-colors duration-200 hover:text-[#D4AF37]"
+        >
+          <Lock size={16} />
+        </Link>
         © {new Date().getFullYear()} AchieDCloset. All rights reserved.
       </div>
     </footer>

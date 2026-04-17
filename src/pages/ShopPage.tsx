@@ -3,12 +3,14 @@ import { ProductCard } from '../components/common/ProductCard'
 import { ShopFilters } from '../components/shop/ShopFilters'
 import { ShopHero } from '../components/shop/ShopHero'
 import { ShopToolbar } from '../components/shop/ShopToolbar'
-import { products, type ProductCategory } from '../data/products'
+import { useProducts } from '../app/context/ProductContext'
+import type { ProductCategory } from '../data/products'
 
 type PriceFilter = 'all' | 'below5000' | 'above5000'
 type SortOption = 'default' | 'price-low' | 'price-high' | 'name'
 
 export function ShopPage() {
+  const { products } = useProducts()
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'all'>('all')
   const [selectedPrice, setSelectedPrice] = useState<PriceFilter>('all')
   const [sortBy, setSortBy] = useState<SortOption>('default')

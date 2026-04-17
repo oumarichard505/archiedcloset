@@ -1,13 +1,14 @@
 import { Link, useParams } from 'react-router-dom'
 import { ProductDetailsSection } from '../components/product/ProductDetailsSection'
 import { RelatedProducts } from '../components/product/RelatedProducts'
-import { products } from '../data/products'
+import { useProducts } from '../app/context/ProductContext'
 
 export function ProductDetailsPage() {
   const { id } = useParams()
   const productId = Number(id)
+  const { products, getProductById } = useProducts()
 
-  const product = products.find((item) => item.id === productId)
+  const product = getProductById(productId)
 
   if (!product) {
     return (
