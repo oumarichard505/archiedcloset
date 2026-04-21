@@ -6,7 +6,6 @@ import {
   type ReactNode,
 } from 'react'
 import type { Product } from '../../data/products'
-import { products as defaultProducts } from '../../data/products'
 import { supabase, toProduct, toDatabaseProduct } from '../../lib/supabase'
 
 type ProductContextType = {
@@ -15,6 +14,7 @@ type ProductContextType = {
   updateProduct: (id: number, updates: Partial<Product>) => Promise<void>
   deleteProduct: (id: number) => Promise<void>
   getProductById: (id: number) => Product | undefined
+  uploadImage: (file: File, filename: string) => Promise<string | null>
   loading: boolean
   error: string | null
 }
@@ -26,13 +26,65 @@ type ProductProviderProps = {
 }
 
 export function ProductProvider({ children }: ProductProviderProps) {
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<Product[]>(() => {
+    // Try to load from localStorage immediately to avoid empty state
+    try {
+      const stored = localStorage.getItem('achiedcloset-products')
+      if (stored) {
+        return JSON.parse(stored)
+      }
+    } catch {
+      // ignore
+    }
+    return []
+  })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   // Fetch products on mount
   useEffect(() => {
-    fetchProducts()
+    let isMounted = true
+
+    const loadProducts = async () => {
+      try {
+        setLoading(true)
+        const { data, error: supabaseError } = await supabase
+          .from('products')
+          .select('*')
+          .order('id', { ascending: true })
+
+        if (!isMounted) return
+
+        if (supabaseError) {
+          console.error('Supabase error:', supabaseError)
+          // Keep localStorage data, show error
+          setError('Using offline mode - changes will not sync to cloud')
+          return
+        }
+
+        if (data) {
+          const products = data.map(toProduct)
+          setProducts(products)
+          localStorage.setItem('achiedcloset-products', JSON.stringify(products))
+          setError(null)
+        }
+      } catch (err) {
+        console.error('Error fetching products:', err)
+        if (isMounted) {
+          setError('Using offline mode - changes will not sync to cloud')
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadProducts()
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   // Subscribe to real-time changes
@@ -42,9 +94,21 @@ export function ProductProvider({ children }: ProductProviderProps) {
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'products' },
-        (payload) => {
-          console.log('Real-time update:', payload)
-          fetchProducts()
+        async () => {
+          // Refetch on changes
+          try {
+            const { data } = await supabase
+              .from('products')
+              .select('*')
+              .order('id', { ascending: true })
+            if (data) {
+              const products = data.map(toProduct)
+              setProducts(products)
+              localStorage.setItem('achiedcloset-products', JSON.stringify(products))
+            }
+          } catch (err) {
+            console.error('Error syncing products:', err)
+          }
         }
       )
       .subscribe()
@@ -54,45 +118,29 @@ export function ProductProvider({ children }: ProductProviderProps) {
     }
   }, [])
 
-  const fetchProducts = async () => {
+  const uploadImage = async (file: File, filename: string): Promise<string | null> => {
     try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .order('id', { ascending: true })
+      const { data, error } = await supabase.storage
+        .from('product-images')
+        .upload(filename, file, {
+          cacheControl: '3600',
+          upsert: true,
+        })
 
       if (error) {
-        console.error('Supabase error:', error)
-        // Fallback to localStorage or default products
-        const stored = localStorage.getItem('achiedcloset-products')
-        if (stored) {
-          setProducts(JSON.parse(stored))
-        } else {
-          setProducts(defaultProducts)
-        }
-        setError('Using offline mode - changes will not sync to cloud')
-        return
+        console.error('Error uploading image:', error)
+        return null
       }
 
-      if (data) {
-        const products = data.map(toProduct)
-        setProducts(products)
-        // Cache locally as fallback
-        localStorage.setItem('achiedcloset-products', JSON.stringify(products))
-        setError(null)
-      }
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(data.path)
+
+      return publicUrl
     } catch (err) {
-      console.error('Error fetching products:', err)
-      // Fallback to localStorage
-      const stored = localStorage.getItem('achiedcloset-products')
-      if (stored) {
-        setProducts(JSON.parse(stored))
-      } else {
-        setProducts(defaultProducts)
-      }
-      setError('Using offline mode - changes will not sync to cloud')
-    } finally {
-      setLoading(false)
+      console.error('Error uploading image:', err)
+      return null
     }
   }
 
@@ -216,6 +264,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
         updateProduct,
         deleteProduct,
         getProductById,
+        uploadImage,
         loading,
         error,
       }}

@@ -1,6 +1,6 @@
 # Supabase Setup Guide
 
-This project now uses Supabase as the backend for product management. Products are stored in a PostgreSQL database with real-time sync across all users.
+This project uses Supabase as the backend for product management with image upload support via Supabase Storage.
 
 ## Setup Instructions
 
@@ -11,7 +11,7 @@ This project now uses Supabase as the backend for product management. Products a
 3. Choose your organization
 4. Set project name: `achiedcloset`
 5. Set database password (save this securely)
-6. Choose region closest to your users (e.g., `ap-south-1` for India)
+6. Choose region closest to your users
 7. Click "Create new project"
 
 ### 2. Get Your API Keys
@@ -36,26 +36,58 @@ Once your project is ready:
    VITE_SUPABASE_ANON_KEY=your-anon-key
    ```
 
-### 4. Create the Database Table
+### 4. Set Up Database Tables
 
 1. Go to **SQL Editor** in your Supabase dashboard
 2. Click **New query**
 3. Copy and paste the contents of `supabase-setup.sql`
 4. Click **Run**
 
-This will:
-- Create the `products` table
-- Enable Row Level Security
-- Set up policies for read/write access
-- Insert the default products
+### 5. Set Up Storage for Images
 
-### 5. Install Dependencies
+1. Go to **SQL Editor** → **New query**
+2. Copy and paste the contents of `supabase-storage-setup.sql`:
+   ```sql
+   -- Create storage bucket for product images
+   INSERT INTO storage.buckets (id, name, public)
+   VALUES ('product-images', 'product-images', true)
+   ON CONFLICT (id) DO NOTHING;
+
+   -- Allow public read access to product-images bucket
+   CREATE POLICY "Allow public read access" ON storage.objects
+     FOR SELECT USING (bucket_id = 'product-images');
+
+   -- Allow authenticated users to upload images
+   CREATE POLICY "Allow authenticated uploads" ON storage.objects
+     FOR INSERT WITH CHECK (bucket_id = 'product-images');
+
+   -- Allow authenticated users to update/delete images
+   CREATE POLICY "Allow authenticated updates" ON storage.objects
+     FOR UPDATE USING (bucket_id = 'product-images');
+
+   CREATE POLICY "Allow authenticated deletes" ON storage.objects
+     FOR DELETE USING (bucket_id = 'product-images');
+   ```
+3. Click **Run**
+
+**Alternative: Using the Dashboard UI**
+
+If the SQL doesn't work, you can manually create the bucket:
+1. Go to **Storage** in the left sidebar
+2. Click **New bucket**
+3. Name: `product-images`
+4. Check **Public bucket**
+5. Click **Save**
+6. Go to **Policies** tab
+7. Add policies for SELECT, INSERT, UPDATE, DELETE (allow public access for demo)
+
+### 6. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 6. Run the App
+### 7. Run the App
 
 ```bash
 npm run dev
@@ -63,10 +95,13 @@ npm run dev
 
 ## Features
 
-- **Real-time sync**: Products update instantly across all browsers
-- **Offline fallback**: If Supabase is unavailable, app falls back to localStorage
-- **Loading states**: Clear feedback during API operations
-- **Error handling**: Graceful degradation with user notifications
+- **Product Management**: Add, edit, delete products via `/admin/login`
+- **Image Upload**: Upload product images directly in the admin panel
+  - Images are stored in Supabase Storage
+  - Automatic image compression and optimization
+  - Public URLs stored in the database
+- **Real-time sync**: Products update instantly across all users
+- **Offline fallback**: Works even without Supabase configured
 
 ## Database Schema
 
@@ -76,7 +111,7 @@ table products {
   name: text
   price: integer
   category: text (bags | perfumes | gift-sets)
-  image: text
+  image: text (URL to Supabase Storage)
   description: text
   details: text[]
   is_new: boolean
@@ -84,12 +119,24 @@ table products {
 }
 ```
 
+## Storage Structure
+
+Images are stored in the `product-images` bucket with filenames like:
+- `1234567890-product-name.jpg`
+- Format: `{timestamp}-{sanitized-filename}`
+
+Public URL format:
+```
+https://txrzvxxpfdttuurnksmd.supabase.co/storage/v1/object/public/product-images/{filename}
+```
+
 ## Security Notes
 
 - Row Level Security (RLS) is enabled on the products table
-- Currently allows public read access for all users
-- Write access (create/update/delete) is also open for demo purposes
+- Storage bucket is public for image access
+- Write access is open for demo purposes
 - For production, consider:
-  - Adding authentication requirement for write operations
+  - Adding authentication requirement for admin operations
   - Creating admin-only policies
-  - Adding API rate limiting
+  - Adding file size limits and type validation
+  - Setting up image optimization/resizing

@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '../app/context/ProductContext'
 import type { Product } from '../data/products'
-import { Plus, Edit, Trash2, LogOut, Loader2 } from 'lucide-react'
+import { Plus, Edit, Trash2, LogOut, Loader2, Upload, X } from 'lucide-react'
 
 export function AdminProductsPage() {
   const { products, deleteProduct, loading, error } = useProducts()
@@ -154,8 +154,11 @@ function ProductModal({
   isOpen: boolean
   onClose: () => void
 }) {
-  const { addProduct, updateProduct } = useProducts()
+  const { addProduct, updateProduct, uploadImage } = useProducts()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -190,8 +193,60 @@ function ProductModal({
     }
   }, [product])
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Please select an image file')
+      return
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Image must be less than 5MB')
+      return
+    }
+
+    setIsUploading(true)
+    setUploadError(null)
+
+    try {
+      // Generate unique filename
+      const timestamp = Date.now()
+      const filename = `${timestamp}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
+
+      const imageUrl = await uploadImage(file, filename)
+
+      if (imageUrl) {
+        setFormData(prev => ({ ...prev, image: imageUrl }))
+      } else {
+        setUploadError('Failed to upload image. Please try again.')
+      }
+    } catch (err) {
+      console.error('Upload error:', err)
+      setUploadError('Failed to upload image. Please try again.')
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
+  const clearImage = () => {
+    setFormData(prev => ({ ...prev, image: '' }))
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.image) {
+      setUploadError('Please upload an image')
+      return
+    }
+
     setIsSubmitting(true)
     const productData = {
       name: formData.name,
@@ -289,20 +344,66 @@ function ProductModal({
               <option value="gift-sets">Gift Sets</option>
             </select>
           </div>
+
+          {/* Image Upload Section */}
           <div>
             <label className="block text-sm font-medium text-[#111111]">
-              Image URL
+              Product Image
             </label>
-            <input
-              type="url"
-              value={formData.image}
-              onChange={(e) =>
-                setFormData(prev => ({ ...prev, image: e.target.value }))
-              }
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-              required
-            />
+
+            {formData.image ? (
+              <div className="mt-2">
+                <div className="relative inline-block">
+                  <img
+                    src={formData.image}
+                    alt="Product preview"
+                    className="h-48 w-48 rounded-lg object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={clearImage}
+                    className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+                <p className="mt-1 text-sm text-green-600">Image uploaded successfully</p>
+              </div>
+            ) : (
+              <div className="mt-2">
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex h-48 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+                >
+                  {isUploading ? (
+                    <>
+                      <Loader2 className="h-8 w-8 animate-spin text-[#D4AF37]" />
+                      <span className="mt-2 text-sm text-gray-600">Uploading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="h-8 w-8 text-gray-400" />
+                      <span className="mt-2 text-sm text-gray-600">Click to upload image</span>
+                      <span className="text-xs text-gray-400">PNG, JPG up to 5MB</span>
+                    </>
+                  )}
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  disabled={isUploading}
+                />
+              </div>
+            )}
+
+            {uploadError && (
+              <p className="mt-2 text-sm text-red-600">{uploadError}</p>
+            )}
           </div>
+
           <div>
             <label className="block text-sm font-medium text-[#111111]">
               Description
@@ -363,7 +464,7 @@ function ProductModal({
           <div className="flex gap-4">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isUploading}
               className="flex items-center gap-2 rounded-md bg-[#111111] px-4 py-2 text-white hover:bg-[#D4AF37] hover:text-[#111111] disabled:opacity-50"
             >
               {isSubmitting && <Loader2 size={16} className="animate-spin" />}
@@ -372,7 +473,7 @@ function ProductModal({
             <button
               type="button"
               onClick={onClose}
-              disabled={isSubmitting}
+              disabled={isSubmitting || isUploading}
               className="rounded-md border border-gray-300 px-4 py-2 text-[#111111] hover:bg-gray-50 disabled:opacity-50"
             >
               Cancel
