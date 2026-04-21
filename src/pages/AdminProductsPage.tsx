@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '../app/context/ProductContext'
 import type { Product } from '../data/products'
-import { Plus, Edit, Trash2, LogOut } from 'lucide-react'
+import { Plus, Edit, Trash2, LogOut, Loader2 } from 'lucide-react'
 
 export function AdminProductsPage() {
-  const { products, deleteProduct } = useProducts()
+  const { products, deleteProduct, loading, error } = useProducts()
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [isAdding, setIsAdding] = useState(false)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -22,10 +23,13 @@ export function AdminProductsPage() {
     navigate('/admin/login')
   }
 
-  const handleDelete = (id: number) => {
-    if (confirm('Are you sure you want to delete this product?')) {
-      deleteProduct(id)
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this product?')) {
+      return
     }
+    setDeletingId(id)
+    await deleteProduct(id)
+    setDeletingId(null)
   }
 
   const openEditModal = (product: Product) => {
@@ -66,45 +70,68 @@ export function AdminProductsPage() {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="rounded-lg bg-white p-4 shadow-md"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="mb-4 h-48 w-full rounded object-cover"
-              />
-              <h3 className="mb-2 text-lg font-semibold text-[#111111]">
-                {product.name}
-              </h3>
-              <p className="mb-2 text-[#D4AF37] font-bold">
-                KES {product.price.toLocaleString()}
-              </p>
-              <p className="mb-2 text-sm text-gray-600 capitalize">
-                {product.category}
-              </p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => openEditModal(product)}
-                  className="flex items-center gap-1 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
-                >
-                  <Edit size={16} />
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(product.id)}
-                  className="flex items-center gap-1 rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
-                >
-                  <Trash2 size={16} />
-                  Delete
-                </button>
+        {error && (
+          <div className="mb-4 rounded-lg bg-yellow-50 p-4 text-yellow-800">
+            {error}
+          </div>
+        )}
+
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-[#D4AF37]" />
+            <span className="ml-2 text-[#111111]">Loading products...</span>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className="rounded-lg bg-white p-4 shadow-md"
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="mb-4 h-48 w-full rounded object-cover"
+                />
+                <h3 className="mb-2 text-lg font-semibold text-[#111111]">
+                  {product.name}
+                </h3>
+                <p className="mb-2 text-[#D4AF37] font-bold">
+                  KES {product.price.toLocaleString()}
+                </p>
+                <p className="mb-2 text-sm text-gray-600 capitalize">
+                  {product.category}
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => openEditModal(product)}
+                    className="flex items-center gap-1 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+                  >
+                    <Edit size={16} />
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    disabled={deletingId === product.id}
+                    className="flex items-center gap-1 rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600 disabled:opacity-50"
+                  >
+                    {deletingId === product.id ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 size={16} />
+                        Delete
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {(editingProduct || isAdding) && (
           <ProductModal
@@ -128,6 +155,7 @@ function ProductModal({
   onClose: () => void
 }) {
   const { addProduct, updateProduct } = useProducts()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -162,8 +190,9 @@ function ProductModal({
     }
   }, [product])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
     const productData = {
       name: formData.name,
       price: parseInt(formData.price),
@@ -175,10 +204,11 @@ function ProductModal({
     }
 
     if (product) {
-      updateProduct(product.id, productData)
+      await updateProduct(product.id, productData)
     } else {
-      addProduct(productData)
+      await addProduct(productData)
     }
+    setIsSubmitting(false)
     onClose()
   }
 
@@ -333,14 +363,17 @@ function ProductModal({
           <div className="flex gap-4">
             <button
               type="submit"
-              className="rounded-md bg-[#111111] px-4 py-2 text-white hover:bg-[#D4AF37] hover:text-[#111111]"
+              disabled={isSubmitting}
+              className="flex items-center gap-2 rounded-md bg-[#111111] px-4 py-2 text-white hover:bg-[#D4AF37] hover:text-[#111111] disabled:opacity-50"
             >
+              {isSubmitting && <Loader2 size={16} className="animate-spin" />}
               {product ? 'Update' : 'Add'} Product
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md border border-gray-300 px-4 py-2 text-[#111111] hover:bg-gray-50"
+              disabled={isSubmitting}
+              className="rounded-md border border-gray-300 px-4 py-2 text-[#111111] hover:bg-gray-50 disabled:opacity-50"
             >
               Cancel
             </button>
